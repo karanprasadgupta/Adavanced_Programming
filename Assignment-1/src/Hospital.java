@@ -20,20 +20,20 @@ public class Hospital {
         Scanner sc = new Scanner(System.in);
         int l;
         while(true){
-            System.out.print("Pincode");
+            System.out.print("Pincode: ");
             String uid=sc.nextLine();
             if (uid == null || uid.length()!=6) {
-                System.out.println("Enter Valid Pincode");
+                System.out.println("Enter Valid Pincode: ");
                 continue;
             }
             try {
                 l = Integer.parseInt(uid);
             } catch (NumberFormatException nfe) {
-                System.out.println("Enter Valid Pincode");
+                System.out.println("Enter Valid Pincode: ");
                 continue;
             }
             if (l<0){
-                System.out.println("Enter Valid Pincode");
+                System.out.println("Enter Valid Pincode: ");
                 continue;
             }
             return uid;
@@ -78,12 +78,14 @@ public class Hospital {
         name= sc.nextLine();
         Pincode=setPincode();
         hosptial_uid=setHosptial_uid();
+        hospital_id_list.add(hosptial_uid);
         System.out.println("Hospital Added Successfully");
         this.display();
     }
     public static void add_slots(){
         boolean found=false;
         Scanner sc=new Scanner(System.in);
+        System.out.print("Enter Hospital ID: ");
         int id= sc.nextInt();
         for(Hospital hospital:hospital_list){
             if(hospital.hosptial_uid==id){
