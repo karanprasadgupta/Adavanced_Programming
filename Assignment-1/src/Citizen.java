@@ -76,24 +76,24 @@ public class Citizen {
         Scanner sc = new Scanner(System.in);
         long l;
         while(true){
-            System.out.print("Unique ID");
+            System.out.print("Unique ID: ");
             String uid=sc.nextLine();
             if (uid == null || uid.length()!=12) {
-                System.out.println("Enter Valid ID");
+                System.out.println("Enter Valid ID: ");
                 continue;
             }
             try {
                 l = Long.parseLong(uid);
             } catch (NumberFormatException nfe) {
-                System.out.println("Enter Valid ID");
+                System.out.println("Enter Valid ID: ");
                 continue;
             }
             if (l<0){
-                System.out.println("Enter Valid ID");
+                System.out.println("Enter Valid ID: ");
                 continue;
             }
-            for(Citizen citizen: Citizen_list){
-                if(citizen.getUnique_Id().equals(uid)){
+            for (int i=0;i<Citizen.getCitizen_list().size()-1;i++){
+                if (Citizen.getCitizen_list().get(i).getUnique_Id().equals(uid)){
                     System.out.println("Citizen with given UID already exists");
                     return "-1";
                 }
@@ -127,20 +127,25 @@ public class Citizen {
         this.display();
     }
     public static void book_slot(){
-        Scanner sc=new Scanner(System.in);
+        Scanner ssc=new Scanner(System.in);
         System.out.print("Enter Citizen's Unique ID: ");
-        String c_uid=sc.nextLine();
+        String c_uid=ssc.nextLine();
         boolean found=false;
         for (Citizen citizen:Citizen_list){
             if(citizen.getUnique_Id().equals(c_uid)){
                 found=true;
                 System.out.println("1. Search by area\n" + "2. Search by Vaccine\n" + "3. Exit");
                 System.out.print("Enter Choice(3 or any other no. to exit): ");
-                int c=sc.nextInt();
+                int c=ssc.nextInt();
+                Scanner sc=new Scanner(System.in);
                 if (c==1){
                     System.out.print("Enter Pincode: ");
                     String PinCode=sc.nextLine();
+                    //System.out.println();
+                    //System.out.println("skipped");
+                    //String PinCode=sc.nextLine();
                     int choice=Hospital.find_vaccine_by_area(PinCode);
+                    //System.out.println("here");
                     if(choice==-1){
                         return;
                     }
@@ -181,12 +186,13 @@ public class Citizen {
         Scanner sc=new Scanner(System.in);
         for (Hospital hospital:Hospital.getHospital_list()){
             if (hospital.getHosptial_uid()==id){
-                //ArrayList<Slot> slots=new ArrayList<Slot>();
+                ArrayList<Slot> slots=new ArrayList<Slot>();
                 if(getVaccination_Status().equals("REGISTERED")){
                     //int slot_counter_for_citizen=0;
                     for (int i=0;i<hospital.getSlots().size();i++){
                         System.out.print(i+"-> ");
                         hospital.getSlots().get(i).display();
+                        slots.add(hospital.getSlots().get(i));
                     }
                     System.out.print("Enter choice: ");
                     int choice= sc.nextInt();
@@ -194,9 +200,9 @@ public class Citizen {
                         System.out.print("enter valid choice: ");
                         choice= sc.nextInt();
                     }
-                    setVaccine_taken(hospital.getSlots().get(choice).getVaccine());
-                    hospital.update_slots(hospital.getSlots().get(choice));
-                    setLast_dosage_day(hospital.getSlots().get(choice).getDay_no());
+                    setVaccine_taken(slots.get(choice).getVaccine());
+                    hospital.update_slots(slots.get(choice));
+                    setLast_dosage_day(slots.get(choice).getDay_no());
                     System.out.println(getName()+" Vaccinated with "+getVaccine_taken().getName());
                     dose_intake++;
                     setVaccination_Status(dose_intake);
@@ -238,9 +244,9 @@ public class Citizen {
                         System.out.print("enter valid choice: ");
                         choice= sc.nextInt();
                     }
-                    setVaccine_taken(hospital.getSlots().get(choice).getVaccine());
+                    setVaccine_taken(slots.get(choice).getVaccine());
+                    setLast_dosage_day(slots.get(choice).getDay_no());
                     hospital.update_slots(slots.get(choice));
-                    setLast_dosage_day(hospital.getSlots().get(choice).getDay_no());
                     System.out.println(getName()+" Vaccinated with "+getVaccine_taken().getName());
                     dose_intake++;
                     setVaccination_Status(dose_intake);
@@ -273,9 +279,9 @@ public class Citizen {
                             System.out.print("enter valid choice: ");
                             choice= sc.nextInt();
                         }
-                        setVaccine_taken(hospital.getSlots().get(choice).getVaccine());
+                        setVaccine_taken(slots.get(choice).getVaccine());
+                        setLast_dosage_day(slots.get(choice).getDay_no());
                         hospital.update_slots(slots.get(choice));
-                        setLast_dosage_day(hospital.getSlots().get(choice).getDay_no());
                         System.out.println(getName()+" Vaccinated with "+getVaccine_taken().getName());
                         dose_intake++;
                         setVaccination_Status(dose_intake);
