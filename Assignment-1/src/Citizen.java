@@ -57,7 +57,15 @@ public class Citizen {
     }
 
     public void setVaccination_Status(int dose_intake) {
-        Vaccination_Status = "pv";
+        if(dose_intake==0){
+            this.Vaccination_Status="REGISTERED";
+        }
+        else if(dose_intake<getVaccine_taken().getNo_of_doses()){
+            this.Vaccination_Status="PARTIALLY VACCINATED";
+        }
+        else if (dose_intake==getVaccine_taken().getNo_of_doses()){
+            this.Vaccination_Status="FULLY VACCINATED";
+        }
     }
 
     public void display(){
@@ -188,6 +196,7 @@ public class Citizen {
                     setVaccine_taken(hospital.getSlots().get(choice).getVaccine());
                     hospital.update_slots(hospital.getSlots().get(choice));
                     setLast_dosage_day(hospital.getSlots().get(choice).getDay_no());
+                    System.out.println(getName()+" Vaccinated with "+getVaccine_taken().getName());
                     dose_intake++;
                     setVaccination_Status(dose_intake);
 
@@ -218,6 +227,10 @@ public class Citizen {
                             slot_counter_for_citizen++;
                         }
                     }
+                    if(slot_counter_for_citizen==0){
+                        System.out.println("No slot available");
+                        return;
+                    }
                     System.out.print("Enter choice: ");
                     int choice= sc.nextInt();
                     while (choice<0 || choice>slots.size()){
@@ -227,6 +240,7 @@ public class Citizen {
                     setVaccine_taken(hospital.getSlots().get(choice).getVaccine());
                     hospital.update_slots(slots.get(choice));
                     setLast_dosage_day(hospital.getSlots().get(choice).getDay_no());
+                    System.out.println(getName()+" Vaccinated with "+getVaccine_taken().getName());
                     dose_intake++;
                     setVaccination_Status(dose_intake);
 
@@ -239,12 +253,18 @@ public class Citizen {
                         int slot_counter_for_citizen=0;
                         for (int i=0;i<hospital.getSlots().size();i++){
                             if (hospital.getSlots().get(i).getVaccine().equals(vaccine)){
-                                //here
-                                System.out.print(slot_counter_for_citizen+"-> ");
-                                hospital.getSlots().get(i).display();
-                                slots.add(hospital.getSlots().get(i));
-                                slot_counter_for_citizen++;
+                                //
+                                if(hospital.getSlots().get(i).getDay_no()-getLast_dosage_day()>=vaccine.getDosage_gap()){
+                                    System.out.print(slot_counter_for_citizen+"-> ");
+                                    hospital.getSlots().get(i).display();
+                                    slots.add(hospital.getSlots().get(i));
+                                    slot_counter_for_citizen++;
+                                }
                             }
+                        }
+                        if(slot_counter_for_citizen==0){
+                            System.out.println("No slot available");
+                            return;
                         }
                         System.out.print("Enter choice: ");
                         int choice= sc.nextInt();
@@ -255,6 +275,7 @@ public class Citizen {
                         setVaccine_taken(hospital.getSlots().get(choice).getVaccine());
                         hospital.update_slots(slots.get(choice));
                         setLast_dosage_day(hospital.getSlots().get(choice).getDay_no());
+                        System.out.println(getName()+" Vaccinated with "+getVaccine_taken().getName());
                         dose_intake++;
                         setVaccination_Status(dose_intake);
                     }

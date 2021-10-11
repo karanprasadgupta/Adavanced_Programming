@@ -117,7 +117,23 @@ public class Hospital {
             System.out.println("Hospital Not Found");
         }
     }
+    public static void display_all_hospital_slots(){
+        Scanner sc =new Scanner(System.in);
+        System.out.print("Enter Hospital ID: ");
+        int Id= sc.nextInt();
+        for (Hospital hospital:Hospital.getHospital_list()){
+            if(hospital.getHosptial_uid()==Id){
+                hospital.display_all_slot();
+                break;
+            }
+        }
+    }
     public void display_all_slot(){
+        if(slots.size()==0){
+            System.out.println("No slot found");
+        }
+        else
+            System.out.println("Availabe Slots: ");
         for (Slot slot:slots){
             slot.display();
         }
