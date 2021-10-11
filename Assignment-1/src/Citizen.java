@@ -312,7 +312,7 @@ public class Citizen {
     }
     public void check_citizen_status(){
         switch (getVaccination_Status()){
-            //done
+            //d
             case "REGISTERED":
                 System.out.println("Citizen "+getVaccination_Status());
                 break;
