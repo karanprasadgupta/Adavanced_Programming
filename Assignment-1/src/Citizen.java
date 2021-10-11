@@ -133,6 +133,7 @@ public class Citizen {
         boolean found=false;
         for (Citizen citizen:Citizen_list){
             if(citizen.getUnique_Id().equals(c_uid)){
+                found=true;
                 System.out.println("1. Search by area\n" + "2. Search by Vaccine\n" + "3. Exit");
                 System.out.print("Enter Choice(3 or any other no. to exit): ");
                 int c=sc.nextInt();
@@ -285,6 +286,40 @@ public class Citizen {
                 }
                 break;
             }
+        }
+    }
+    public static void check_vaccination_status(){
+        Scanner sc=new Scanner(System.in);
+        System.out.print("Enter Unique ID: ");
+        String uid=sc.nextLine();
+        boolean found=false;
+        for(Citizen citizen: getCitizen_list()){
+            if(citizen.getUnique_Id().equals(uid)){
+                citizen.check_citizen_status();
+                found=true;
+                break;
+            }
+        }
+        if (!found){
+            System.out.println("Citizen with enter Unique ID not found");
+        }
+    }
+    public void check_citizen_status(){
+        switch (getVaccination_Status()){
+            case "REGISTERED":
+                System.out.println("Citizen "+getVaccination_Status());
+                break;
+            case "PARTIALLY VACCINATED":
+                System.out.println("Citizen "+getVaccination_Status());
+                System.out.println("Vaccine Given: "+getVaccine_taken().getName());
+                System.out.println("No. of doses given: "+getDose_intake());
+                System.out.println("Next dose due date: "+(getLast_dosage_day()+getVaccine_taken().getDosage_gap()));
+                break;
+            case "FULLY VACCINATED":
+                System.out.println("Citizen "+getVaccination_Status());
+                System.out.println("Vaccine Given: "+getVaccine_taken().getName());
+                System.out.println("No. of doses given: "+getDose_intake());
+                break;
         }
     }
 }
