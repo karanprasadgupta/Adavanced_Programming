@@ -56,11 +56,19 @@ public class Slot {
         System.out.print("Enter Day Number: ");
         setDay_no(sc.nextInt());
         System.out.print("Enter Quantity: ");
-        setQty(sc.nextInt());
+        int qt= sc.nextInt();
+        while (qt<=0){
+            System.out.println("Quantity must be greater than 0 for new slot creation");
+            qt= sc.nextInt();
+        }
+        setQty(qt);
         setVaccine();
     }
     public void display(){
         System.out.println("Day: "+day_no+" Available Quantity: "+qty+" Vaccine: "+vaccine.getName());
+    }
+    public void book(){
+        setQty(getQty()-1);
     }
 
 }
