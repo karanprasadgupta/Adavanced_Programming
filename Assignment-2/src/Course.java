@@ -6,6 +6,8 @@ public class Course {
     private ArrayList<Student> students=new ArrayList<Student>();
     private int no_of_instructors;
     private int no_of_students;
+    private ArrayList<Class_Content> Materials=new ArrayList<Class_Content>();
+    private ArrayList<Class_Content> Assessments=new ArrayList<Class_Content>();
     public Course(){
         this.course_name="Unknown";
     }
@@ -19,7 +21,6 @@ public class Course {
     public ArrayList<Instructor> getInstructors() {
         return instructors;
     }
-
     public ArrayList<Student> getStudents() {
         return students;
     }
@@ -52,6 +53,21 @@ public class Course {
         instructors.add(new Instructor(Instructor_id));
         setNo_of_instructors();
     }
+    public void add_Material(Class_Content material){
+        Materials.add(material);
+    }
+    public void add_Assessment(Class_Content Assessment){
+        Assessments.add(Assessment);
+    }
+
+    public ArrayList<Class_Content> getMaterials() {
+        return Materials;
+    }
+
+    public ArrayList<Class_Content> getAssessments() {
+        return Assessments;
+    }
+
     @Override
     public String toString() {
         return "{ " +
