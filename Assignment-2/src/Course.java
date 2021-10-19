@@ -2,29 +2,25 @@ import java.util.*;
 
 public class Course {
     private String course_name;
-    private ArrayList<String> instructors=new ArrayList<String>();
-    private ArrayList<String> students=new ArrayList<String>();
+    private ArrayList<Instructor> instructors=new ArrayList<Instructor>();
+    private ArrayList<Student> students=new ArrayList<Student>();
     private int no_of_instructors;
     private int no_of_students;
     public Course(){
         this.course_name="Unknown";
-        this.no_of_students = students.size();
-        this.no_of_instructors = instructors.size();
     }
     public Course(String name){
         this.course_name=name;
-        this.no_of_students = students.size();
-        this.no_of_instructors = instructors.size();
     }
     public String getCourse_name() {
         return course_name;
     }
 
-    public ArrayList<String> getInstructors() {
+    public ArrayList<Instructor> getInstructors() {
         return instructors;
     }
 
-    public ArrayList<String> getStudents() {
+    public ArrayList<Student> getStudents() {
         return students;
     }
 
@@ -49,19 +45,18 @@ public class Course {
     }
 
     public void add_students(String Student_id){
-        students.add(Student_id);
+        students.add(new Student(Student_id,this));
         setNo_of_students();
     }
     public void add_Instructor(String Instructor_id){
-        instructors.add(Instructor_id);
+        instructors.add(new Instructor(Instructor_id));
         setNo_of_instructors();
     }
-
     @Override
     public String toString() {
         return "{ " +
                 "Course Name: '" + course_name + '\'' +
-                ", instructors=" + instructors +
-                ", students=" + students + " }";
+                ", Instructors=" + instructors +
+                ", Students=" + students + " }";
     }
 }

@@ -15,6 +15,7 @@ public class Main {
                 -----------------------------------""");
         this.main_menu_selection();
     }
+
     private void main_menu_selection(){
         Scanner sc=new Scanner(System.in);
         System.out.print("Enter Choice(input 3 or other value to exit):");
@@ -45,10 +46,10 @@ public class Main {
                        8. Add comments
                        9. Logout
                 -----------------------------------""");
-        this.Instructor_menu_selction();
+        this.Instructor_menu_selection();
     }
-    private void Instructor_menu_selction(){
-
+    private void Instructor_menu_selection(){
+        // TODO: 19-10-2021  
     }
     private void Student_menu_display(){
         System.out.println("""
@@ -62,10 +63,10 @@ public class Main {
                         6. Add comments
                         7. Logout
                 -----------------------------------""");
-        this.Student_menu_selction();
+        this.Student_menu_selection();
     }
-    private void Student_menu_selction(){
-
+    private void Student_menu_selection(){
+        // TODO: 19-10-2021  
     }
     public void add_course(){
         //This can be modified as per requirement, but here we are using it to generate the sample test case with 2 instructors and 3 students for the course
