@@ -11,7 +11,6 @@ public class Instructor implements Comment_Section, Materials_Assessments {
         this.setId(id);
     }
     public Instructor(String id,Course course){
-        System.out.println("I m invoded");
         this.setId(id);
         this.setCourse_taught(course);
     }
