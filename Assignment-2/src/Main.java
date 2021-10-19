@@ -27,8 +27,8 @@ public class Main {
             case "1":
                 System.out.println("Instructors: ");
                 for (Instructor instructor:course.getInstructors()){
-                    i++;
                     System.out.println(i+"- "+instructor.getId());
+                    i++;
                 }
                 System.out.print("Choose Id:");
                 i= sc.nextInt();
@@ -38,8 +38,8 @@ public class Main {
                 System.out.println("Students: ");
                 i=0;
                 for (Student student:course.getStudents()){
-                    i++;
                     System.out.println(i+"- "+student.getId());
+                    i++;
                 }
                 System.out.print("Choose Id:");
                 i= sc.nextInt();
