@@ -20,19 +20,38 @@ public class Main {
         Scanner sc=new Scanner(System.in);
         System.out.print("Enter Choice(input 3 or other value to exit):");
         String inp_choice=sc.nextLine();
+        int i=0;
+        Course course=Course_list.get(0);//can be modified for multiple courses
         switch (inp_choice) {
+
             case "1":
-                this.Instructor_menu_display();
+                System.out.println("Instructors: ");
+                for (Instructor instructor:course.getInstructors()){
+                    i++;
+                    System.out.println(i+"- "+instructor.getId());
+                }
+                System.out.print("Choose Id:");
+                i= sc.nextInt();
+                this.Instructor_menu_display(course.getInstructors().get(i));
                 break;
             case "2":
-                this.Student_menu_display();
+                System.out.println("Students: ");
+                i=0;
+                for (Student student:course.getStudents()){
+                    i++;
+                    System.out.println(i+"- "+student.getId());
+                }
+                System.out.print("Choose Id:");
+                i= sc.nextInt();
+                this.Student_menu_display(course.getStudents().get(i));
                 break;
             default:
                 return;
         }
         this.main_menu_display();
     }
-    private void Instructor_menu_display(){
+    private void Instructor_menu_display(Instructor instructor){
+        System.out.println("Welcome "+ instructor.getId());
         System.out.println("""
                 -----------------------------------
                 INSTRUCTOR MENU
@@ -46,12 +65,45 @@ public class Main {
                        8. Add comments
                        9. Logout
                 -----------------------------------""");
-        this.Instructor_menu_selection();
+        this.Instructor_menu_selection(instructor);
     }
-    private void Instructor_menu_selection(){
-        // TODO: 19-10-2021  
+    private void Instructor_menu_selection(Instructor instructor){
+        Scanner sc=new Scanner(System.in);
+        System.out.print("Enter Choice(input 9 or other value to logout):");
+        String inp_choice=sc.nextLine();
+        switch (inp_choice) {
+            case "1":
+                instructor.add_class_material();
+                break;
+            case "2":
+                instructor.add_assessments();
+                break;
+            case "3":
+                instructor.view_lecture_material(instructor.getCourse_taught().getMaterials());
+                break;
+            case "4":
+                instructor.view_assessments(instructor.getCourse_taught().getAssessments());
+                break;
+            case "5":
+                instructor.grade_assessments();
+                break;
+            case "6":
+                instructor.close_assessments();
+                break;
+            case "7":
+                instructor.view_comments();
+                break;
+            case "8":
+                instructor.add_comments();
+                break;
+            default:
+                System.out.println("Logged Out Successfully");
+                return;
+        }
+        this.Instructor_menu_display(instructor);
     }
-    private void Student_menu_display(){
+    private void Student_menu_display(Student student){
+        System.out.println("Welcome "+student.getId());
         System.out.println("""
                 -----------------------------------
                 STUDENT MENU
@@ -63,10 +115,36 @@ public class Main {
                         6. Add comments
                         7. Logout
                 -----------------------------------""");
-        this.Student_menu_selection();
+        this.Student_menu_selection(student);
     }
-    private void Student_menu_selection(){
-        // TODO: 19-10-2021  
+    private void Student_menu_selection(Student student){
+        Scanner sc=new Scanner(System.in);
+        System.out.print("Enter Choice(input 9 or other value to logout):");
+        String inp_choice=sc.nextLine();
+        switch (inp_choice) {
+            case "1":
+                student.view_lecture_material(student.getCourse_enrolled().getMaterials());
+                break;
+            case "2":
+                student.view_assessments(student.getCourse_enrolled().getAssessments());
+                break;
+            case "3":
+                student.submit_assessments();
+                break;
+            case "4":
+                student.view_grades();
+                break;
+            case "5":
+                student.view_comments();
+                break;
+            case "6":
+                student.add_comments();
+                break;
+            default:
+                System.out.println("Logged Out Successfully");
+                return;
+        }
+        this.Student_menu_display(student);
     }
     public void add_course(){
         //This can be modified as per requirement, but here we are using it to generate the sample test case with 2 instructors and 3 students for the course

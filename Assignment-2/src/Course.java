@@ -6,6 +6,16 @@ public class Course {
     private ArrayList<Student> students=new ArrayList<Student>();
     private int no_of_instructors;
     private int no_of_students;
+    private ArrayList<String> comment_section=new ArrayList<String>();
+
+    public ArrayList<String> getComment_section() {
+        return comment_section;
+    }
+
+    public void addComment(String comment) {
+        this.comment_section.add(comment);
+    }
+
     private ArrayList<Class_Content> Materials=new ArrayList<Class_Content>();
     private ArrayList<Class_Content> Assessments=new ArrayList<Class_Content>();
     public Course(){

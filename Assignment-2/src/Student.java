@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Student implements Comment_Section, Materials_Assessments {
@@ -161,13 +162,26 @@ public class Student implements Comment_Section, Materials_Assessments {
         System.out.println();
         System.out.println("Ungraded Submissions: ");
         for (Class_Content assessment: getGradedAssessment()){
-            assessment.display_submission_grade();
+            assessment.display_submission_ungrade();
             System.out.println();
         }
     }
     @Override
     public void add_comments() {
-        // TODO: 19-10-2021
+        String s;
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter Comment");
+        String comment=sc.nextLine();
+        s=comment+" -"+getId()+"\n"+new Date()+"";
+        getCourse_enrolled().addComment(s);
+    }
+
+    @Override
+    public void view_comments() {
+        System.out.println("Comments: ");
+        for (String comment:course_enrolled.getComment_section()){
+            System.out.println(comment);
+        }
     }
 
     @Override

@@ -152,4 +152,7 @@ public class Class_Content {
         System.out.println("Marks Scored"+assessment.get(5));
         System.out.println("Graded by: "+assessment.get(6));
     }
+    public void display_submission_ungrade(){
+        System.out.println("Submission"+assessment.get(4));
+    }
 }

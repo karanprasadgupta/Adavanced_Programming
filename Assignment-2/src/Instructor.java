@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Instructor implements Comment_Section, Materials_Assessments {
@@ -116,7 +117,20 @@ public class Instructor implements Comment_Section, Materials_Assessments {
     }
     @Override
     public void add_comments() {
-        // TODO: 19-10-2021  
+        String s;
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter Comment");
+        String comment=sc.nextLine();
+        s=comment+" -"+getId()+"\n"+new Date()+"";
+        getCourse_taught().addComment(s);
+    }
+
+    @Override
+    public void view_comments() {
+        System.out.println("Comments: ");
+        for (String comment:course_taught.getComment_section()){
+            System.out.println(comment);
+        }
     }
 
     @Override
