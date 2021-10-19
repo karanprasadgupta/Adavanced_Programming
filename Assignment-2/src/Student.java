@@ -25,7 +25,13 @@ public class Student implements Comment_Section,Materials_Assements{
     public Course getCourse_enrolled() {
         return course_enrolled;
     }
-
+    
+    public void submit_assessments(){
+        // TODO: 19-10-2021  
+    }
+    public void view_grades(){
+        // TODO: 19-10-2021  
+    }
     @Override
     public void add_comments() {
         // TODO: 19-10-2021  

@@ -26,6 +26,18 @@ public class Instructor implements Comment_Section,Materials_Assements{
         return course_taught;
     }
 
+    public void add_class_material(){
+        // TODO: 19-10-2021
+    }
+    public void add_assessments(){
+        // TODO: 19-10-2021
+    }
+    public void grade_assessments(){
+        // TODO: 19-10-2021
+    }
+    public void close_assessments(){
+        // TODO: 19-10-2021
+    }
     @Override
     public void add_comments() {
         // TODO: 19-10-2021  
