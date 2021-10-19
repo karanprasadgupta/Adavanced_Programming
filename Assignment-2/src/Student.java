@@ -32,7 +32,9 @@ public class Student implements Comment_Section, Materials_Assessments {
     public void setOpenAssessment(ArrayList<Class_Content> openAssessment) {
         OpenAssessment = fetch_assignments("Open");
     }
-
+    public void grade_asm(Class_Content asm){
+        this.GradedAssessment.add(asm);
+    }
     public ArrayList<Class_Content> getClosedAssessment() {
         return ClosedAssessment;
     }
@@ -64,13 +66,6 @@ public class Student implements Comment_Section, Materials_Assessments {
     public void setCourse_enrolled(Course course_enrolled) {
         this.course_enrolled = course_enrolled;
     }
-    public void getGraded(Class_Content Assessment){
-        int n=UngradedAssessment_wo_file.indexOf(Assessment);
-        UngradedAssessment_wo_file.remove(n);
-        UngradedAssessment.remove(n);
-        GradedAssessment.add(Assessment);
-
-    }
     public Course getCourse_enrolled() {
         return course_enrolled;
     }
@@ -78,11 +73,17 @@ public class Student implements Comment_Section, Materials_Assessments {
         ArrayList<Class_Content> assessments=new ArrayList<Class_Content>();
         for (Class_Content Assessment: course_enrolled.getAssessments()){
             if (Assessment.getAssessment().get(3).equals(S)){
+                Class_Content ass=new Class_Content();
+                ass=Assessment;
                 if (S.equals("Open")) {
-                    assessments.add(Assessment);
+                    if(GradedAssessment.contains(Assessment) || UngradedAssessment_wo_file.contains(Assessment)){
+                        int c=1;
+                    }
+                    else {
+                    assessments.add(ass);}
                 }
                 else if (S.equals("Closed")){
-                    assessments.add(Assessment);
+                    assessments.add(ass);
                 }
             }
         }
@@ -114,11 +115,15 @@ public class Student implements Comment_Section, Materials_Assessments {
                 if (isValidZip(inp)){
                     break;
                 }
+                System.out.println("Enter valid File: ");
             }
         }
         return inp;
     }
     private boolean isValidZip(String filename){
+        if (filename.length()<5){
+            return false;
+        }
         String extension_name=filename.substring(filename.length()-4);
         if(extension_name.equals(".zip")){
             return true;
@@ -126,9 +131,13 @@ public class Student implements Comment_Section, Materials_Assessments {
         return false;
     }
     public void submit_assessments(){
+        refresh_Assignments();
         if(OpenAssessment.isEmpty() || OpenAssessment.size()==0){
             System.out.println("No pending Assessments");
+            return;
         }
+        //System.out.println(""+OpenAssessment);
+
         System.out.println("Pending Assessments: ");
         view_assessments(OpenAssessment);
         Scanner sc= new Scanner(System.in);
@@ -136,18 +145,21 @@ public class Student implements Comment_Section, Materials_Assessments {
         int id=sc.nextInt();
         System.out.println();
         if (id>=0 && id<OpenAssessment.size()){
-            Class_Content Assessment=OpenAssessment.get(id);
+                Class_Content Assessment=new Class_Content(OpenAssessment.get(id));
                 if(UngradedAssessment.contains(Assessment) || GradedAssessment.contains(Assessment)){
                     System.out.println("Already Submitted");
                     return;
                 }
-                UngradedAssessment_wo_file.add(Assessment);
+
+                this.UngradedAssessment_wo_file.add(OpenAssessment.get(id));
                 String submission=acceptAssessment(Assessment.getAssessment().get(0),Assessment.getAssessment().get(1));
                 Assessment.setFilename(submission);
-                Assessment.change_Status("Closed");
+                //Assessment.change_Status("Closed");
                 //ClosedAssessment.add(Assessment);
-                UngradedAssessment.add(Assessment);
-                OpenAssessment.remove(Assessment);
+                //System.out.println(OpenAssessment.get(id)+"-osgid"+Assessment.toString()+"-asm");
+                this.UngradedAssessment.add(Assessment);
+                OpenAssessment.remove(OpenAssessment.get(id));
+            //System.out.println(""+OpenAssessment);
         }
         else {
             System.out.println("Invalid ID");
@@ -161,7 +173,7 @@ public class Student implements Comment_Section, Materials_Assessments {
         }
         System.out.println();
         System.out.println("Ungraded Submissions: ");
-        for (Class_Content assessment: getGradedAssessment()){
+        for (Class_Content assessment: getUngradedAssessment()){
             assessment.display_submission_ungrade();
             System.out.println();
         }

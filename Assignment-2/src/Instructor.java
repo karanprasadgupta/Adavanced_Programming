@@ -65,9 +65,13 @@ public class Instructor implements Comment_Section, Materials_Assessments {
     public void grade_assessments(){
 
         view_assessments(getCourse_taught().getAssessments());
+        if(getCourse_taught().getAssessments().isEmpty() || getCourse_taught().getAssessments().size()==0){
+            return;
+        }
         System.out.print("Enter ID of Assessments to view Submissions: ");
         Scanner sc =new Scanner(System.in);
         int i= sc.nextInt();
+        String marks;
         System.out.println();
         Class_Content Assessment=getCourse_taught().getAssessments().get(i);
         ArrayList<Student> Students_to_Grade=new ArrayList<Student>();
@@ -76,24 +80,34 @@ public class Instructor implements Comment_Section, Materials_Assessments {
                 Students_to_Grade.add(student);
             }
         }
+        if(Students_to_Grade.isEmpty()){
+            System.out.println("No submissions");
+            return;
+        }
         System.out.println("Choose ID from these ungraded submissions");
         int j=0;
         for (Student student:Students_to_Grade){
 
             System.out.println(j+". "+student);
+            j++;
         }
         System.out.print("Enter id: ");
         int id=sc.nextInt();
         Student selected_student=Students_to_Grade.get(id);
-        int index_of_Assessment=selected_student.getUngradedAssessment().indexOf(Assessment);
+        //System.out.println(selected_student+selected_student.getUngradedAssessment().toString());
+        int index_of_Assessment=selected_student.getUngradedAssessment_wo_file().indexOf(Assessment);
             System.out.println("Submission: "+selected_student.getUngradedAssessment().get(index_of_Assessment).getSubmission());
-            System.out.println("Max Marks: "+Assessment.getAssessment().get(3));
-            System.out.print("Marks Scored: ");
-            String marks=sc.nextLine();
-            selected_student.getUngradedAssessment().get(index_of_Assessment).change_Status("Graded");
-            selected_student.getUngradedAssessment().get(index_of_Assessment).change_marks(marks);
-            selected_student.getUngradedAssessment().get(index_of_Assessment).setGrader(getId());
-            selected_student.getGraded(Assessment);
+            System.out.println("Max Marks: "+Assessment.getAssessment().get(2));
+            System.out.println("Marks Scored: ");
+            Scanner mmc=new Scanner(System.in);
+            marks=mmc.nextLine();
+            Class_Content asm=new Class_Content();
+            asm=selected_student.getUngradedAssessment().get(index_of_Assessment);
+            asm.change_marks(marks);
+            asm.setGrader(getId());
+            selected_student.getUngradedAssessment().remove(index_of_Assessment);
+            selected_student.getUngradedAssessment_wo_file().remove(index_of_Assessment);
+            selected_student.grade_asm(asm);
     }
     public void close_assessments(){
         ArrayList<Class_Content> open_Assessments=new ArrayList<Class_Content>();

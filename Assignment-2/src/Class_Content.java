@@ -5,6 +5,13 @@ import java.util.Scanner;
 public class Class_Content {
     private ArrayList<String> material=new ArrayList<String >();
     private ArrayList<String> assessment=new ArrayList<String >();
+    public  Class_Content(){
+        this.material=new ArrayList<String>();
+    }
+    public Class_Content(Class_Content class_content) {
+        this.material=new ArrayList<String >(class_content.material);
+        this.assessment=new ArrayList<String>(class_content.assessment);
+    }
 
     private void setMaterial(ArrayList<String> material) {
         this.material = material;
@@ -148,11 +155,19 @@ public class Class_Content {
         setAssessment(new_Quiz);
     }
     public void display_submission_grade(){
-        System.out.println("Submission"+assessment.get(4));
-        System.out.println("Marks Scored"+assessment.get(5));
+        System.out.println("Submission: "+assessment.get(4));
+        System.out.println("Marks Scored: "+assessment.get(5));
         System.out.println("Graded by: "+assessment.get(6));
     }
     public void display_submission_ungrade(){
-        System.out.println("Submission"+assessment.get(4));
+        System.out.println("Submission: "+assessment.get(4));
+    }
+
+    @Override
+    public String toString() {
+        return "Class_Content{" +
+                "material=" + material +
+                ", assessment=" + assessment +
+                '}';
     }
 }
