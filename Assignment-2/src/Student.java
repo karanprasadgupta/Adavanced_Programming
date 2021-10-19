@@ -12,6 +12,7 @@ public class Student implements Comment_Section, Materials_Assessments {
     private ArrayList<Class_Content> GradedAssessment=new ArrayList<Class_Content>();
     private ArrayList<Class_Content> UngradedAssessment=new ArrayList<Class_Content>();
     private ArrayList<Class_Content> UngradedAssessment_wo_file=new ArrayList<Class_Content>();
+    private ArrayList<Class_Content> Submissions=new ArrayList<Class_Content>();
     public Student(String id){
         this.setId(id);
     }
@@ -137,28 +138,38 @@ public class Student implements Comment_Section, Materials_Assessments {
             return;
         }
         //System.out.println(""+OpenAssessment);
-
+        ArrayList<Class_Content> pendingsubs=new ArrayList<Class_Content>();
+        for (Class_Content Asigns: OpenAssessment){
+            if (!Submissions.contains(Asigns)){
+                pendingsubs.add(Asigns);
+            }
+        }
+        if (pendingsubs.isEmpty() || pendingsubs.size()==0){
+            System.out.println("No Pending Submission");
+            return;
+        }
         System.out.println("Pending Assessments: ");
-        view_assessments(OpenAssessment);
+        view_assessments(pendingsubs);
         Scanner sc= new Scanner(System.in);
         System.out.print("Enter Assessment ID: ");
         int id=sc.nextInt();
         System.out.println();
-        if (id>=0 && id<OpenAssessment.size()){
-                Class_Content Assessment=new Class_Content(OpenAssessment.get(id));
+        if (id>=0 && id<pendingsubs.size()){
+                Class_Content Assessment=new Class_Content(pendingsubs.get(id));
                 if(UngradedAssessment.contains(Assessment) || GradedAssessment.contains(Assessment)){
                     System.out.println("Already Submitted");
                     return;
                 }
 
-                this.UngradedAssessment_wo_file.add(OpenAssessment.get(id));
+                this.UngradedAssessment_wo_file.add(pendingsubs.get(id));
+                this.Submissions.add(pendingsubs.get(id));
                 String submission=acceptAssessment(Assessment.getAssessment().get(0),Assessment.getAssessment().get(1));
                 Assessment.setFilename(submission);
                 //Assessment.change_Status("Closed");
                 //ClosedAssessment.add(Assessment);
                 //System.out.println(OpenAssessment.get(id)+"-osgid"+Assessment.toString()+"-asm");
                 this.UngradedAssessment.add(Assessment);
-                OpenAssessment.remove(OpenAssessment.get(id));
+                OpenAssessment.remove(pendingsubs.get(id));
             //System.out.println(""+OpenAssessment);
         }
         else {

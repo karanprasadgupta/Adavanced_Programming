@@ -118,11 +118,16 @@ public class Instructor implements Comment_Section, Materials_Assessments {
         }
         System.out.println("List Of Open Assessments: ");
         view_assessments(open_Assessments);
+        if (open_Assessments.isEmpty() || open_Assessments.size()==0){
+            System.out.println("No Open Assessment");
+            return;
+        }
         System.out.print("Enter ID of assignment to close: ");
         Scanner sc=new Scanner(System.in);
         int index= sc.nextInt();
         Class_Content Assessment_to_close= open_Assessments.get(index);
         int x=getCourse_taught().getAssessments().indexOf(Assessment_to_close);
+        Assessment_to_close.change_Status("Closed");
         getCourse_taught().getAssessments().set(x,Assessment_to_close);
         for (Student student: getCourse_taught().getStudents()){
             student.refresh_Assignments();
