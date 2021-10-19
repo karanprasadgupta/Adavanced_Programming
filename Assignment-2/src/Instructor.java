@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Scanner;
+
 public class Instructor implements Comment_Section,Materials_Assements{
     //no detailed implementation of instructor details since not required for assignment
     //full association between course and Instructor
@@ -25,7 +29,29 @@ public class Instructor implements Comment_Section,Materials_Assements{
     public Course getCourse_taught() {
         return course_taught;
     }
-
+    private void create_slide(){
+        //Slide=[Title, No. of Slides, Slides, Date of Upload, Instructor]
+        ArrayList<ArrayList<String>> new_slide=new ArrayList<ArrayList<String>>();
+        ArrayList<String> title = new ArrayList<>(),slides=new ArrayList<>(),no_of_slides = new ArrayList<>(),date_of_upload=new ArrayList<>(),instructor=new ArrayList<String>();
+        Scanner sc=new Scanner(System.in);
+        System.out.print("Enter Topic of Slides: ");
+        title.add(sc.nextLine());
+        new_slide.add(title);
+        System.out.print("Enter number of slides: ");
+        String n=sc.nextLine();
+        no_of_slides.add(n);
+        new_slide.add(no_of_slides);
+        System.out.println("Enter content of Slides");
+        for (int i=1;i<(Integer.parseInt(n)+1);i++){
+            System.out.print("Content of Slide "+i+":");
+            slides.add(sc.nextLine());
+        }
+        new_slide.add(slides);
+        date_of_upload.add(new Date()+"");
+        new_slide.add(date_of_upload);
+        instructor.add(getId());
+        new_slide.add(instructor);
+    }
     public void add_class_material(){
         // TODO: 19-10-2021
     }
