@@ -60,7 +60,7 @@ public class Course {
         setNo_of_students();
     }
     public void add_Instructor(String Instructor_id){
-        instructors.add(new Instructor(Instructor_id));
+        instructors.add(new Instructor(Instructor_id,this));
         setNo_of_instructors();
     }
     public void add_Material(Class_Content material){
