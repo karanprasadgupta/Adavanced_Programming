@@ -1,6 +1,7 @@
 import java.util.*;
 
 public class Course {
+    //working
     private String course_name;
     private ArrayList<Instructor> instructors=new ArrayList<Instructor>();
     private ArrayList<Student> students=new ArrayList<Student>();

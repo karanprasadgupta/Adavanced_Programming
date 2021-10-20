@@ -3,6 +3,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class Class_Content {
+    //working
     private ArrayList<String> material=new ArrayList<String >();
     private ArrayList<String> assessment=new ArrayList<String >();
     public  Class_Content(){

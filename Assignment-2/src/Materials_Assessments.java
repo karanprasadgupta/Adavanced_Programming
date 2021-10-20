@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public interface Materials_Assessments {
+    //working
     default void view_lecture_material(ArrayList<Class_Content> Materials){
         if (Materials.isEmpty() || Materials.size()==0){
             System.out.println("No Lecture Material Found");

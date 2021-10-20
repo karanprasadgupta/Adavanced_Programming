@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
+    //working
     private ArrayList<Course> Course_list=new ArrayList<Course>();
     private Course new_course;
     //not implementing other functions since those are not part of assignment
