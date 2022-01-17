@@ -18,3 +18,11 @@ polymorphism to design a robust system that can support multiple roles. The syst
 used by Instructors (a single course can have multiple instructors like GC) and Students.
 For now, you are supposed to design a single course page that has users for the roles
 mentioned above and show BYLD a working command line simulation.
+
+#### [Assignment-3](Assignment-4/src)
+##### **Topic:** `Classes and Objects, Class Relationships, Exception Handling, Object Cloning and Generic Programming.`
+
+A single-player game with a really simple objective: the player gets 5 chances to hop and
+land on the carpet of tiles. Every time the player lands on a random tile, s/he may win a soft toy.
+The player stores all the soft toys he has won in a bucket. Once the player has hopped five
+times, the game ends after listing out the details of the soft toys won by the player.
